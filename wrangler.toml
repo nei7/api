@@ -1,0 +1,21 @@
+name = "api.nei.rocks"
+main = "dist/index.mjs"
+compatibility_date = "2022-05-28"
+compatibility_flags = []
+
+[durable_objects]
+bindings = [
+  { name = "VIEWS", class_name = "Views" }
+]
+
+[triggers]
+crons = ["15 * * * *"]
+
+[build]
+command = "node build.js"
+
+[miniflare]
+kv_persist = true
+cache_persist = true
+durable_objects_persist = true
+env_path = ".env"
