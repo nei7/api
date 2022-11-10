@@ -1,4 +1,3 @@
-import { buildResponse } from "@/utils/response";
 import { $fetch } from "ohmyfetch";
 import { Route } from "..";
 

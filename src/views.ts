@@ -16,6 +16,7 @@ export class Views implements DurableObject {
           request.headers
         );
       case "PUT":
+        // eslint-disable-next-line no-case-declarations
         const ip = request.headers.get("CF-Connecting-IP");
         if (!ip) {
           return buildResponse(

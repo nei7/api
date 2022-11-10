@@ -5,6 +5,7 @@
   "type": "module",
   "module": "./dist/index.mjs",
   "scripts": {
+    "lint": "eslint .",
     "build": "node build.js",
     "dev": "miniflare --live-reload --debug --modules dist/index.mjs",
     "dev:remote": "wrangler dev",
@@ -18,7 +19,10 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^3.11.0",
     "@types/jest": "^27.5.1",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
     "esbuild": "^0.14.41",
+    "eslint": "^8.27.0",
     "jest": "^28.1.0",
     "jest-environment-miniflare": "^2.5.0",
     "miniflare": "^2.5.0",

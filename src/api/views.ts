@@ -1,4 +1,3 @@
-import { buildResponse } from "@/utils/response";
 import { Route } from "..";
 import posts from "./posts.json";
 

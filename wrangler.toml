@@ -1,4 +1,4 @@
-name = "api.nei.rocks"
+name = "api.fszarek.me"
 main = "dist/index.mjs"
 compatibility_date = "2022-05-28"
 compatibility_flags = []
