@@ -1,14 +1,20 @@
 import { buildResponse } from "./utils/response";
-import { viewsApi, spotifyApi } from "./api";
+import { viewsApi, spotifyApi, newsletterApi } from "./api";
 import processCronTrigger from "./processCronTrigger";
+
+export interface IResponse {
+  status: number;
+  error?: string;
+  data?: any;
+}
 
 type Handler<T = Record<string, string>> = (params: {
   url: URL;
-  body?: object;
+  body?: any;
   request: Request;
   env: Bindings;
   params: T;
-}) => Response | Promise<Response>;
+}) => Promise<IResponse> | Promise<Response> | Response;
 
 type HttpMethod =
   | "GET"
@@ -41,13 +47,18 @@ const isPath = (url: URL) => (path: string) => {
   return pattern.test(url);
 };
 
-const routes: Route[] = [viewsApi, spotifyApi];
+const routes: Route[] = [viewsApi, spotifyApi, newsletterApi];
 
 export async function handleRequest(request: Request, env: Bindings) {
   const url = new URL(request.url);
 
   if (request.method === "OPTIONS") {
-    return buildResponse({}, 200);
+    return buildResponse(
+      {
+        status: 200,
+      },
+      request.headers
+    );
   }
 
   const { handler, path } =
@@ -64,23 +75,30 @@ export async function handleRequest(request: Request, env: Bindings) {
     const body = request.body
       ? await request.json<object>().catch(() => undefined)
       : {};
-    const response = handler
-      ? await handler({ url, body, request, env, params })
-      : buildResponse(
-          {
-            error: "Not found",
-          },
-          404
-        );
 
-    return response;
+    if (handler) {
+      const response = await handler({ url, body, request, env, params });
+      return response instanceof Response
+        ? response
+        : buildResponse(response, request.headers);
+    }
+
+    return buildResponse(
+      {
+        status: 404,
+        error: "Not found",
+      },
+
+      request.headers
+    );
   } catch (error) {
     console.log(error);
     return buildResponse(
       {
+        status: 500,
         error: (error as any).message || "Internal Server error",
       },
-      500
+      request.headers
     );
   }
 }

@@ -44,7 +44,10 @@ const route: Route = {
   method: "GET",
   handler: async ({ env }) => {
     const playing = await getNowPlaying(env);
-    return buildResponse(playing);
+    return {
+      status: 200,
+      data: playing,
+    };
   },
 };
 

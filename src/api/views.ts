@@ -10,16 +10,17 @@ const route: Route = {
 
     const postSlug = params.post;
     if (!postSlug) {
-      return buildResponse(
-        {
-          error: "you must provide postSlug",
-        },
-        400
-      );
+      return {
+        status: 400,
+        error: "you must provide postSlug",
+      };
     }
 
     if (!posts.some((post) => post === postSlug)) {
-      return buildResponse({ error: "post with provided slug not found" }, 404);
+      return {
+        error: "post with provided slug not found",
+        status: 404,
+      };
     }
 
     const id = views.idFromName(url.pathname);

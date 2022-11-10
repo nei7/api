@@ -8,29 +8,35 @@ export class Views implements DurableObject {
 
     switch (request.method) {
       case "GET":
-        return buildResponse({
-          views,
-        });
+        return buildResponse(
+          {
+            status: 200,
+            data: { views },
+          },
+          request.headers
+        );
       case "PUT":
         const ip = request.headers.get("CF-Connecting-IP");
         if (!ip) {
-          return buildResponse({ error: "Can't get ip" }, 400);
+          return buildResponse(
+            { error: "Can't get ip", status: 400 },
+            request.headers
+          );
         }
 
         if (!(await this.state.storage.get(ip))) {
           await this.state.storage.put(ip, null);
         }
 
-        return buildResponse({
-          views,
-        });
+        return buildResponse(
+          {
+            status: 201,
+            data: { views },
+          },
+          request.headers
+        );
     }
 
-    return buildResponse(
-      {
-        error: "Not found",
-      },
-      404
-    );
+    return buildResponse({ status: 404, error: "Not found" }, request.headers);
   }
 }

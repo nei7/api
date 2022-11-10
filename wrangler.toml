@@ -14,6 +14,9 @@ crons = ["15 * * * *"]
 [build]
 command = "node build.js"
 
+[build.upload]
+command = "MODE=production node build.js"
+
 [miniflare]
 kv_persist = true
 cache_persist = true

@@ -18,6 +18,12 @@ try {
     entryPoints: [path.join(__dirname, "src", "index.ts")],
     outdir: path.join(__dirname, "dist"),
     outExtension: { ".js": ".mjs" },
+    define: {
+      origin:
+        process.env?.MODE === "production"
+          ? `"https://fszarek.com"`
+          : `"http://localhost:3000"`,
+    },
   });
 } catch {
   process.exitCode = 1;
