@@ -1,6 +1,10 @@
 import { IResponse } from "..";
 
-const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://fszarek.me",
+  "https://www.fszarek.me",
+];
 
 export function buildResponse(obj: IResponse, headers: Headers) {
   const origin = headers.get("Origin") || "";

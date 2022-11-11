@@ -25,7 +25,12 @@ const route: Route = {
     const id = views.idFromName(url.pathname);
     const stub = views.get(id);
 
-    return stub.fetch(request);
+    return stub.fetch(
+      new Request(url.toString(), {
+        method: request.method,
+        headers: request.headers,
+      })
+    );
   },
 };
 

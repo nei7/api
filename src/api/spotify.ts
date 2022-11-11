@@ -42,11 +42,17 @@ const route: Route = {
   path: "/spotify",
   method: "GET",
   handler: async ({ env }) => {
-    const playing = await getNowPlaying(env);
-    return {
-      status: 200,
-      data: playing,
-    };
+    try {
+      const playing = await getNowPlaying(env);
+      return {
+        status: 200,
+        data: playing,
+      };
+    } catch (err) {
+      return {
+        status: 500,
+      };
+    }
   },
 };
 

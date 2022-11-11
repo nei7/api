@@ -20,7 +20,7 @@ export class Views implements DurableObject {
         const ip = request.headers.get("CF-Connecting-IP");
         if (!ip) {
           return buildResponse(
-            { error: "Can't get ip", status: 400 },
+            { status: 400, data: { views, error: "Can't get ip" } },
             request.headers
           );
         }

@@ -1,3 +1,11 @@
+import fetch from "node-fetch";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 await fetch("https://api.github.com/repos/nei7/personal-page/contents/posts", {
   method: "GET",
   headers: {
@@ -9,7 +17,7 @@ await fetch("https://api.github.com/repos/nei7/personal-page/contents/posts", {
   .then((res) => res.json())
   .then((posts) => {
     fs.writeFileSync(
-      path.join(__dirname, "src", "api", "posts.json"),
+      path.join(__dirname, "..", "src", "api", "posts.json"),
       JSON.stringify(posts.map((post) => post.name.replace(".md", "")))
     );
   })

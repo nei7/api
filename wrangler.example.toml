@@ -1,21 +1,33 @@
-name = "api.fszarek.me"
+name = "api"
 main = "dist/index.mjs"
 compatibility_date = "2022-05-28"
 compatibility_flags = []
+
+routes = [
+    { pattern = "api.fszarek.me", custom_domain = true, zone_id = "673ade24bc10fa5d41479b9eeacdefee" }
+]
 
 [durable_objects]
 bindings = [
   { name = "VIEWS", class_name = "Views" }
 ]
 
-[triggers]
-crons = ["15 * * * *"]
+[[migrations]]
+tag = "v1"
+new_classes = ["Views"]
 
 [build]
 command = "node build.js"
 
 [build.upload]
 command = "MODE=production node build.js"
+
+[vars]
+SPOTIFY_CLIENT_SECRET= ""
+SPOTIFY_CLIENT_ID= ""
+SPOTIFY_REFRESH_TOKEN= ""
+REVUE_API_KEY= ""
+
 
 [miniflare]
 kv_persist = true
