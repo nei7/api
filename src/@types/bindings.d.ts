@@ -6,4 +6,5 @@ interface Bindings {
   SPOTIFY_CLIENT_SECRET: string;
   SPOTIFY_REFRESH_TOKEN: string;
   REVUE_API_KEY: string;
+  HUAMI_APP_TOKEN: string;
 }

@@ -1,5 +1,5 @@
 import { buildResponse } from "./utils/response";
-import { viewsApi, spotifyApi, newsletterApi } from "./api";
+import { viewsApi, spotifyApi, newsletterApi, stats, workouts } from "./api";
 import processCronTrigger from "./processCronTrigger";
 
 export interface IResponse {
@@ -47,7 +47,7 @@ const isPath = (url: URL) => (path: string) => {
   return pattern.test(url);
 };
 
-const routes: Route[] = [viewsApi, spotifyApi, newsletterApi];
+const routes: Route[] = [viewsApi, spotifyApi, newsletterApi, stats, workouts];
 
 export async function handleRequest(request: Request, env: Bindings) {
   const url = new URL(request.url);
